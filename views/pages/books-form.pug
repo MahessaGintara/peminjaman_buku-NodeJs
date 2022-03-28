@@ -1,0 +1,78 @@
+extends ../layout/base
+
+block content
+    section.content-header 
+        h1 
+          | Form Add Books  
+        //-   small This website is used to borrow books online.
+        ol.breadcrumb.float-sm-right
+            li.breadcrumb-item
+                a(href='/') Home
+            li.breadcrumb-item
+                a(href='/book-dashboard') Admin Dashboard
+            li.breadcrumb-item.active Here
+    section.content 
+        .box 
+            .box-header.with-border
+                h3.box-title
+                    | Add Books
+                .box-tools.pull-right
+                    button(type='button', data-widget='collapse', data-toggle='tooltip',title='collapse').btn.btn-box-tool
+                        i.fa.fa-minus
+            .box-body 
+                form(action="/book-dashboard/books-form/" method="post", enctype="multipart/form-data")
+                    .row 
+                        .col-xs-6  
+                            .box-body 
+                                - if (messages.msg_error)
+                                    .alert.alert-danger.alert-dismissable
+                                        button.close(type='button', data-dismiss='alert', aria-hidden='true')
+                                            | ×
+                                        h4
+                                            i.icon.fa.fa-ban    
+                                            | Alert!
+                                        | !{messages.msg_error}
+                                - if (messages.msg_info)
+                                    .alert.alert-info.alert-dismissable
+                                        button.close(type='button', data-dismiss='alert', aria-hidden='true')
+                                            | ×
+                                        h4
+                                            i.icon.fa.fa-ban    
+                                            | Info!
+                                        | !{messages.msg_info}
+                                .form-group 
+                                    label 
+                                        | Book Cover 
+                                    input( required type="file" name="book_image" id='book_image' accept="image/*").form-control.book_image
+                                .form-group
+                                    label
+                                        | Book Name
+                                    input( required  type='text' value=`${data.books_name}` name='books_name' placeholder='Enter Name'  autofocus).form-control
+                                .form-group
+                                    label
+                                        | Category
+                                    select(name="category_id").form-control
+                                        for row, index in caregory     
+                                            option(value=`${row.category_id}`)  #{row.category_name}  
+                                .form-group
+                                    label
+                                        | Book Creator
+                                    input( required  type='text' value=`${data.books_creator}` name='books_creator' placeholder='Enter Books Creator').form-control
+                                .form-group
+                                    label
+                                        | Book Publisher
+                                    input( required  type='text' value=`${data.books_publisher}` name='books_publisher' placeholder='Enter Books Publisher').form-control
+                                .form-group
+                                    label
+                                        | Number of Books
+                                    input( required  type='number' value=`${data.number_of_books}` name='number_of_books' placeholder='Enter Number Of Books' min="0").form-control
+                                .form-group
+                                    label
+                                        | Release date
+                                    input( required  type='date' value=`${data.release_date}` name='release_date' placeholder='Enter Number Of Books').form-control
+                            box-footer
+                                button(type='submit').btn.btn-primary
+                                    | Submit
+                                a(href='/book-dashboard').btn.btn-primary.pull-right
+                                    | Back
+                            

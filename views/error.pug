@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  .bg-danger
+    h1= message
+  .bg-info
+    h2= error.status
+  pre #{error.stack}

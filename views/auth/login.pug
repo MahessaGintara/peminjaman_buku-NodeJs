@@ -1,0 +1,41 @@
+extends auth_base.pug 
+
+block content
+    body.hold-transition.login-page 
+        .login-box 
+            .login-logo
+                a(href='#')
+                    b
+                        | Perpustakaan
+            .login-box-body
+                p.login-box-msg
+                    | Sign in to start your session
+                form(action="/login",method="post")
+                    - if (messages.msg_error) 
+                        .alert.alert-danger.alert-dismissable 
+                            button.close(type='button', data-dismiss='alert', aria-hidden='true') 
+                                | ×
+                            h4
+                                i.icon.fa.fa-ban
+                                | Alert! 
+                            | !{messages.msg_error}
+                    .form-group.has-feedback
+                        input(type="email",placeholder="Email",name="txtEmail", value=`${email}`).form-control
+                        span.glyphicon.glyphicon-envelope.form-control-feedback
+                    .form-group.has-feedback
+                        input(type="password",placeholder="Password",name="txtPassword", value=`${password}`).form-control
+                        span.glyphicon.glyphicon-lock.form-control-feedback
+                    .row
+                        .col-xs-8
+                            .checkbox 
+                                    label
+                                        input(type="checkbox", name='boolRemember', value=1)
+                                        |  Remember Me
+                        .col-xs-4
+                            button(type="submit").btn.btn-primary.btn-block.btn-flat
+                                | Sign In
+                a(href='#')
+                    | I forgot my password
+                br
+                a(href='/register').text-center
+                    |	Register a new membership

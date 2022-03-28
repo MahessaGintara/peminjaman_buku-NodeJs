@@ -1,0 +1,27 @@
+{
+  "name": "penyewaan-buku",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "async": "^3.2.3",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.14.0",
+    "formidable": "^2.0.1",
+    "http-errors": "~1.6.3",
+    "jquery": "^3.6.0",
+    "method-override": "^3.0.0",
+    "morgan": "~1.9.1",
+    "mv": "^2.1.1",
+    "mysql": "^2.18.1",
+    "node-localstorage": "^2.2.1",
+    "pug": "2.0.0-beta11"
+  }
+}

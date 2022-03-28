@@ -1,0 +1,26 @@
+extends layout/base
+
+block content
+  section.content-header 
+    h1 
+      | Welcome 
+      small This website is used to borrow books online.
+    ol.breadcrumb 
+      li 
+        a(href="/")
+          i.fas.fa-angle-right
+          |  Home 
+          li.active Here 
+
+  section.content 
+    .row 
+      .col-xs-12 
+        .box 
+          .box-header 
+            h3.box-title
+              if (user=='')
+                | Hi, let's create an account first!. Press register button on the top right  
+              else 
+                | Hi!, #{user[0]}
+          .box-body 
+            p Welcome to the online book lending place

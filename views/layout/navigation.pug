@@ -1,0 +1,40 @@
+header.main-header 
+    a(href='/').logo 
+        span.logo-mini 
+            <b>P</b>
+        span.logo-lg 
+            <b>Perpustakaan</b>
+    nav(role='navigation').navbar.navbar-static-top 
+        a(href='#', role='button', data-toggle='offcanvas').sidebar-toggle  
+            span.sr-only Toggle Navigation 
+            span.icon-bar 
+            span.icon-bar 
+            span.icon-bar 
+        div.navbar-custom-menu 
+            ul.nav.navbar-nav 
+                li.dropdown.user.user-menu 
+                    if (user == '')
+                        a(href="/register") Register
+                    else
+                        a(href='#',data-toggle='dropdown').dropdown-toggle
+                            img(src='/adminlte/dist/img/user2-160x160.jpg',alt='User Image').user-image 
+                            span.hidden-xs 
+                                | #{user[0]} 
+                        ul.dropdown-menu 
+                            li.user-header 
+                                img(src='/adminlte/dist/img/user2-160x160.jpg',alt='User Image').img-circle
+                                p 
+                                    | #{user[0]}  
+                                    small 
+                                        if (user[2]==1)
+                                            | Admin
+                                        else 
+                                            | Member
+                            
+                            li.user-footer 
+                                .pull-left 
+                                    a(href='#').btn.btn-default.btn-flat 
+                                        | Profile 
+                                .pull-right 
+                                    a(href='/logout').btn.btn-default.btn-flat 
+                                        | Sign out 

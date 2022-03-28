@@ -1,0 +1,168 @@
+extends ../layout/base
+
+block content
+    section.content-header 
+        h1 
+          | Admin Dashboard  
+        //-   small This website is used to borrow books online.
+        ol.breadcrumb.float-sm-right
+            li.breadcrumb-item
+                a(href='/') Home
+            li.breadcrumb-item.active Here
+    section.content 
+        .row 
+            .col-xs-12
+                .box 
+                    .box-header
+                        h3.box-title
+                            | Categories
+                        .box-tools.pull-right
+                            button(type='button', data-widget='collapse', data-toggle='tooltip',title='collapse').btn.btn-box-tool
+                                i.fa.fa-minus
+                    .box-body
+                        - if(messages.category_msg_info)
+                            .alert.alert-success.alert-dismissable
+                                button.close(type='button', data-dismiss='alert', aria-hidden='true')
+                                    | ×
+                                h4
+                                    i.icon.fa.fa-check
+                                    | Success!
+                                | !{messages.category_msg_info}
+                        - if(messages.category_msg_error)
+                            .alert.alert-danger.alert-dismissable
+                                button.close(type='button', data-dismiss='alert', aria-hidden='true')
+                                    | ×
+                                h4
+                                    i.icon.fa.fa-ban
+                                    | Alert!
+                                | !{messages.category_msg_error}
+                        a(href='/book-dashboard/category-form').pull-left.btn.btn-primary
+                            i.fa.fa-plus 
+                                |  Add Category 
+                        .data-table
+                            table.table.table-bordered.table-striped.dataTable
+                                thead
+                                    tr
+                                        th
+                                            | No
+                                        th
+                                            | Category Name
+                                        th 
+                                            | Action
+                                tbody
+                                    for row, index in categories 
+                                        tr
+                                            td #{index+1}
+                                            td #{row.category_name}
+                                            td
+                                                div(style='display:inline-block')
+                                                    a(href='/book-dashboard/category-form/edit/'+row.category_id).btn.btn-sm.btn-primary
+                                                            i.fa.fa-edit
+                                                | 
+                                                div(style='display:inline-block')
+                                                    button.btn.btn-sm.btn-danger(type='button' data-toggle="modal" data-target="#categoryModalWarning"+row.category_id)
+                                                        i.fa.fa-remove
+                                                .modal.modal-warning.fade(id="categoryModalWarning"+row.category_id)
+                                                    .modal-dialog   
+                                                        .modal-content 
+                                                            .modal-header 
+                                                                button.close(type="button" data-dismiss="modal" aria-label="Close")
+                                                                    span(aria-hidden="true") &times;
+                                                                h4.modal-title Warning
+                                                            .modal-body 
+                                                                p This action will delete the "#{row.category_name}" category with all the book data in it, and this action cannot be undone
+                                                            .modal-footer 
+                                                                button.btn.btn-outline.pull-left(data-dismiss="modal") Close 
+                                                                form(method='post', action='/book-dashboard/category-form/delete/')
+                                                                    input(type="hidden",name="category_id", value=`${row.category_id}`)
+                                                                    input(type="hidden",name="_method", value="DELETE")
+                                                                    button.btn.btn-outline(type='submit') Delete                                                    
+                .box 
+                    .box-header
+                        h3.box-title
+                            | Books
+                        .box-tools.pull-right
+                            button(type='button', data-widget='collapse', data-toggle='tooltip',title='collapse').btn.btn-box-tool
+                                i.fa.fa-minus
+                    .box-body
+                        - if(messages.books_msg_info)
+                            .alert.alert-success.alert-dismissable
+                                button.close(type='button', data-dismiss='alert', aria-hidden='true')
+                                    | ×
+                                h4
+                                    i.icon.fa.fa-check
+                                    | Success!
+                                | !{messages.books_msg_info}
+                        - if(messages.books_msg_error)
+                            .alert.alert-danger.alert-dismissable
+                                button.close(type='button', data-dismiss='alert', aria-hidden='true')
+                                    | ×
+                                h4
+                                    i.icon.fa.fa-ban
+                                    | Alert!
+                                | !{messages.books_msg_error}
+                        a(href='/book-dashboard/books-form').pull-left.btn.btn-primary
+                            i.fa.fa-plus 
+                                |  Add Books 
+                        br
+                        .data-table
+                            table.table.table-bordered.table-striped.dataTable
+                                thead
+                                    tr
+                                        th
+                                            | No
+                                        th
+                                            | Name
+                                        th
+                                            | Cover
+                                        th
+                                            | Creator
+                                        th
+                                            | Publisher
+                                        th
+                                            | Number of books
+                                        th
+                                            | Category
+                                        th  
+                                            | Action
+                                tbody 
+                                    for row, index in books 
+                                        tr
+                                            td #{index+1}
+                                            td #{row.book_name}
+                                            td 
+                                                img(style={"width": "150px"} src=`${row.image_url}`, alt="")
+                                            td #{row.books_creator}
+                                            td #{row.books_publisher}
+                                            td #{row.jumlah_buku}
+                                            td #{row.category_name} #{row.id}
+                                            td
+                                                - var userid = row.user_id;
+                                                - var path = row.book_name.replace(" ", "-");
+                                                div(style='display:inline-block')
+                                                    a(href='/customers/'+`${path}`).btn.btn-sm.btn-primary
+                                                            i.fa.fa-info
+                                                | 
+                                                div(style='display:inline-block')
+                                                    a(href='/book-dashboard/books-form/edit/'+`${row.books_id}`).btn.btn-sm.btn-primary
+                                                            i.fa.fa-edit
+                                                | 
+                                                div(style='display:inline-block')
+                                                    button.btn.btn-sm.btn-danger(type='button' data-toggle="modal" data-target="#bookModalWarning"+row.books_id)
+                                                        i.fa.fa-remove
+                                                .modal.modal-warning.fade(id="bookModalWarning"+row.books_id)
+                                                    .modal-dialog   
+                                                        .modal-content 
+                                                            .modal-header 
+                                                                button.close(type="button" data-dismiss="modal" aria-label="Close")
+                                                                    span(aria-hidden="true") &times;
+                                                                h4.modal-title Warning
+                                                            .modal-body 
+                                                                p This action will delete all books entitled #{row.book_name}, and this action cannot be undone
+                                                            .modal-footer  
+                                                                button.btn.btn-outline.pull-left(data-dismiss="modal") Close 
+                                                                form(method='post', action='/book-dashboard/books-form/delete')
+                                                                    input(type="hidden",name="books_id", value=`${row.books_id}`)
+                                                                    input(type="hidden",name="image_url", value=`${row.image_url}`)
+                                                                    input(type="hidden",name="_method", value="DELETE")
+                                                                    button.btn.btn-outline(type='submit') Delete

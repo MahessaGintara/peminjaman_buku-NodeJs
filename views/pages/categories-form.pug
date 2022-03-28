@@ -1,0 +1,50 @@
+extends ../layout/base
+
+block content
+    section.content-header 
+        h1 
+          | Form Category  
+        //-   small This website is used to borrow books online.
+        ol.breadcrumb.float-sm-right
+            li.breadcrumb-item
+                a(href='/') Home
+            li.breadcrumb-item
+                a(href='/book-dashboard') Admin Dashboard
+            li.breadcrumb-item.active Here
+    section.content 
+        .box 
+            .box-header.with-border
+                h3.box-title
+                    if (data.id == undefined)
+                        | Add Category
+                    else 
+                        | Edit Category
+                .box-tools.pull-right
+                    button(type='button', data-widget='collapse', data-toggle='tooltip',title='collapse').btn.btn-box-tool
+                        i.fa.fa-minus
+            .box-body 
+                form(role='form' action=data.id==undefined?"/book-dashboard/category-form":"/book-dashboard/category-form/edit/"+data.id method="POST")
+                    .row 
+                        .col-xs-6   
+                            .box-body   
+                                - if (messages.category_msg_error)
+                                    .alert.alert-danger.alert-dismissable
+                                        button.close(type='button', data-dismiss='alert', aria-hidden='true')
+                                            | ×
+                                        h4
+                                            i.icon.fa.fa-ban    
+                                            | Alert!
+                                        | !{messages.category_msg_error}
+                                .form-group
+                                    label
+                                        | Category Name
+                                    input(type='text',value=`${data.category_name}`,name='category_name',placeholder='Enter Category Name').form-control
+                            box-footer
+                                if (data.id == undefined)
+                                    button(type='submit').btn.btn-primary
+                                        | Submit
+                                else
+                                    button(type='submit').btn.btn-primary
+                                        | Edit
+                                a(href='/book-dashboard').btn.btn-primary.pull-right
+                                    | Back
